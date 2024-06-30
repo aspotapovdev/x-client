@@ -13,7 +13,7 @@ export const Modal: FC<ModalProps> = ({ isOpen, children, onRequestClose }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       className="modal-content"
-      appElement={document.getElementById('root')}
+      appElement={document.getElementById('root') as HTMLElement}
       overlayClassName="modal-overlay">
       {children}
     </DefaultModal>
