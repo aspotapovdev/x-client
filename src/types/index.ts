@@ -10,15 +10,25 @@ export enum SIGN_UP_FIELD_NAMES {
   avatar = 'avatar',
 }
 
+type GENDER = 'male' | 'female';
+
 export interface SignUpFormValues {
   [SIGN_UP_FIELD_NAMES.name]: string;
   [SIGN_UP_FIELD_NAMES.email]: string;
   [SIGN_UP_FIELD_NAMES.password]: string;
   [SIGN_UP_FIELD_NAMES.confirmPassword]: string;
-  [SIGN_UP_FIELD_NAMES.dobDay]: string;
-  [SIGN_UP_FIELD_NAMES.dobMonth]: string;
-  [SIGN_UP_FIELD_NAMES.dobYear]: string;
-  [SIGN_UP_FIELD_NAMES.gender]: 'male' | 'female';
-  [SIGN_UP_FIELD_NAMES.avatar]: FileList;
+  [SIGN_UP_FIELD_NAMES.dobDay]: number;
+  [SIGN_UP_FIELD_NAMES.dobMonth]: number;
+  [SIGN_UP_FIELD_NAMES.dobYear]: number;
+  [SIGN_UP_FIELD_NAMES.gender]: GENDER;
+  [SIGN_UP_FIELD_NAMES.avatar]: File;
+}
+
+export interface SignUpDTO {
+  [SIGN_UP_FIELD_NAMES.name]: string;
+  [SIGN_UP_FIELD_NAMES.email]: string;
+  [SIGN_UP_FIELD_NAMES.password]: string;
+  [SIGN_UP_FIELD_NAMES.gender]: GENDER;
+  [SIGN_UP_FIELD_NAMES.avatar]: File;
   dateOfBirth: string;
 }

@@ -1,7 +1,14 @@
 import { forwardRef } from 'react';
 import cn from 'classnames';
 
-interface TextFieldProps {}
+interface TextFieldProps {
+  label?: string;
+  type?: 'text' | 'password' | 'email' | 'number';
+  placeholder?: string;
+  classes?: string;
+  required?: boolean;
+  errorMessage?: string;
+}
 
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (

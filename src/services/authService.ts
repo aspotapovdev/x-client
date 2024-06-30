@@ -1,5 +1,10 @@
+import { AxiosError } from 'axios';
 import api from './api';
 import { API_PATHS } from '@constants/api-paths.ts';
+
+export type ServerError = {
+  errors: Record<string, string>;
+};
 
 export const signUp = async (formData: FormData) => {
   try {
@@ -7,7 +12,7 @@ export const signUp = async (formData: FormData) => {
 
     return response.data;
   } catch (error) {
-    throw error;
+    throw error as AxiosError<ServerError>;
   }
 };
 

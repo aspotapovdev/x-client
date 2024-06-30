@@ -1,4 +1,4 @@
-import { SignUpFormValues } from '@/types';
+import { SIGN_UP_FIELD_NAMES, SignUpFormValues } from '@/types';
 import React from 'react';
 import { Controller, Control } from 'react-hook-form';
 
@@ -11,6 +11,7 @@ interface RadioGroupProps {
   options: Option[];
   control: Control<SignUpFormValues>;
   errorMessage?: string;
+  name: SIGN_UP_FIELD_NAMES.gender;
 }
 
 export const RadioGroup: React.FC<RadioGroupProps> = ({
