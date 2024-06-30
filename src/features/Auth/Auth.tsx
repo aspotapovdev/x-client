@@ -12,7 +12,7 @@ interface AuthProps {}
 export const Auth: FC<AuthProps> = () => {
   const [selectedTab, setSelectedTab] = useState(tabsData[0].id);
 
-  const handleTabSelect = (id) => {
+  const handleTabSelect = (id: string) => {
     setSelectedTab(id);
   };
 
