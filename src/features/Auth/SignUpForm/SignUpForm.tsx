@@ -130,7 +130,7 @@ export const SignUpForm: FC<SignUpFormProps> = () => {
             errorMessage={errors.gender?.message}
           />
         </div>
-        <div className="flex flex-col mt-6">
+        <div className="flex flex-col mt-6 w-full">
           <label className="label">
             Дата рождения
             <span className="ml-0.5 text-red-500">*</span>
