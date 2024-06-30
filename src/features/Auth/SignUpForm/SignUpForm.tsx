@@ -1,4 +1,4 @@
-import { SIGN_UP_FIELD_NAMES, SignUpFormValues } from '@/types';
+import { SIGN_UP_FIELD_NAMES, SignUpDTO, SignUpFormValues } from '@/types';
 import { AvatarUpload } from '@components/AvatarUpload';
 import { Button } from '@components/Button';
 import { RadioGroup } from '@components/RadioGroup';
@@ -6,7 +6,8 @@ import { Select } from '@components/Select';
 import { TextField } from '@components/TextField';
 import { Dialog } from '@components/Dialog';
 import { validationSchema } from '@features/Auth/SignUpForm/validationSchema.ts';
-import { signUp } from '@services/authService.ts';
+import { ServerError, signUp } from '@services/authService.ts';
+import { AxiosError } from 'axios';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -57,26 +58,29 @@ export const SignUpForm: FC<SignUpFormProps> = () => {
 
   const onSubmit = async (data: SignUpFormValues) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { confirmPassword, dobYear, dobMonth, dobDay, ...submitData } = data;
+    const { confirmPassword, dobYear, dobMonth, dobDay, ...rest } = data;
+    const submitData = { ...rest } as SignUpDTO;
     const paddedMonth = String(dobMonth).padStart(2, '0');
     const paddedDay = String(dobDay).padStart(2, '0');
     submitData.dateOfBirth = `${dobYear}-${paddedMonth}-${paddedDay}`;
 
     const formData = new FormData();
     Object.keys(submitData).forEach((key) => {
-      formData.append(key, submitData[key]);
+      const value = submitData[key as keyof typeof submitData];
+      if (value instanceof File) {
+        formData.append(key, value);
+      } else {
+        formData.append(key, value as string);
+      }
     });
-    if (submitData.avatar && submitData.avatar[0]) {
-      formData.append(SIGN_UP_FIELD_NAMES.avatar, submitData.avatar[0]);
-    }
 
     try {
       await signUp(formData);
       reset();
       setOpenSuccessModal(true);
     } catch (error) {
-      const { response } = error;
-      if (response.data?.errors) {
+      const { response } = error as AxiosError<ServerError>;
+      if (response?.data?.errors) {
         const { errors } = response.data;
         Object.keys(errors).forEach((key) => {
           if (errors[key]) {
@@ -151,7 +155,7 @@ export const SignUpForm: FC<SignUpFormProps> = () => {
               type="number"
               placeholder="Год"
               errorMessage={errors.dobYear?.message}
-              classnames="max-w-20"
+              classes="max-w-20"
             />
           </div>
           <TextField

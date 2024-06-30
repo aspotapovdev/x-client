@@ -2,14 +2,15 @@ import { Button } from '@components/Button';
 import { FC, useState, useRef, useEffect, ChangeEvent } from 'react';
 import { ReactComponent as EmptyUserAvatar } from '@/assets/empty-user-avatar.svg';
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { SIGN_UP_FIELD_NAMES } from '@/types';
+import { SIGN_UP_FIELD_NAMES, SignUpFormValues } from '@/types';
 import AvatarEditor from 'react-avatar-editor';
 import { Modal } from '@/components/Modal';
 
 interface AvatarUploadProps {
-  register: UseFormRegister<never>;
-  setValue: UseFormSetValue<never>;
+  register: UseFormRegister<SignUpFormValues>;
+  setValue: UseFormSetValue<SignUpFormValues>;
   isSuccessfulUpload: boolean;
+  errorMessage?: string;
 }
 
 export const AvatarUpload: FC<AvatarUploadProps> = ({
@@ -52,11 +53,9 @@ export const AvatarUpload: FC<AvatarUploadProps> = ({
           const avatarFile = new File([blob], 'avatar.png', {
             type: 'image/png',
           });
-          const dataTransfer = new DataTransfer();
-          dataTransfer.items.add(avatarFile);
-          const fileList = dataTransfer.files;
 
-          setValue(SIGN_UP_FIELD_NAMES.avatar, fileList);
+          setValue(SIGN_UP_FIELD_NAMES.avatar, avatarFile);
+
           setPreview(URL.createObjectURL(avatarFile));
         }
       });
@@ -90,10 +89,10 @@ export const AvatarUpload: FC<AvatarUploadProps> = ({
         type="file"
         className="hidden"
         accept="image/*"
-        ref={hiddenInputRef}
         {...register(SIGN_UP_FIELD_NAMES.avatar, {
           onChange: handleUploadedFile,
         })}
+        ref={hiddenInputRef}
       />
       <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
         {file && (

@@ -41,6 +41,17 @@ const validationSchema = yup.object({
     .string()
     .oneOf([yup.ref(SIGN_UP_FIELD_NAMES.password)], 'Пароли должны совпадать')
     .required('Подтверждение пароля обязательно'),
+  [SIGN_UP_FIELD_NAMES.avatar]: yup
+    .mixed<File>()
+    .test('fileSize', 'Файл слишком большой', (value) => {
+      return value && value.size <= 5 * 1048576; // 5 МБ
+    })
+    .test('fileType', 'Неподдерживаемый тип файла', (value) => {
+      return (
+        value && ['image/jpg', 'image/jpeg', 'image/png'].includes(value.type)
+      );
+    })
+    .required('Аватар обязателен'),
 });
 
 export { validationSchema };
