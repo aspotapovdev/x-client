@@ -26,6 +26,7 @@ export const userServiceApi = createApi({
       transformResponse: (response: { user: User }) => {
         return response.user;
       },
+      providesTags: ['user'],
     }),
     changePassword: builder.mutation<void, ChangePasswordDTO>({
       query: ({ oldPassword, newPassword }) => ({
@@ -34,7 +35,19 @@ export const userServiceApi = createApi({
         body: { oldPassword, newPassword },
       }),
     }),
+    updateProfile: builder.mutation<User, FormData>({
+      query: (data) => ({
+        url: API_PATHS.updateProfile,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['user'],
+    }),
   }),
 });
 
-export const { useMeQuery, useChangePasswordMutation } = userServiceApi;
+export const {
+  useMeQuery,
+  useChangePasswordMutation,
+  useUpdateProfileMutation,
+} = userServiceApi;

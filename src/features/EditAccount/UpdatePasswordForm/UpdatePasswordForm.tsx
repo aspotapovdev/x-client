@@ -55,7 +55,7 @@ export const UpdatePasswordForm: FC<UpdatePasswordFormProps> = () => {
   }, [data, error, isError, setError]);
 
   return (
-    <form className="flex flex-col space-y-4" onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col mt-9" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="text-lg font-semibold">Изменить пароль</h2>
       <TextField
         {...register(CHANGE_PASSWORD_FIELD_NAMES.oldPassword)}
@@ -89,7 +89,11 @@ export const UpdatePasswordForm: FC<UpdatePasswordFormProps> = () => {
         size="md"
         className="mt-9 self-center min-w-60"
         disabled={isSubmitting || isLoading}>
-        {isSubmitting ? <PulseLoader color="#fff" size={8} /> : 'Сохранить'}
+        {isSubmitting ? (
+          <PulseLoader color="#fff" size={8} />
+        ) : (
+          'Сохранить новый пароль'
+        )}
       </Button>
       {isOpenSuccessModal && (
         <Dialog

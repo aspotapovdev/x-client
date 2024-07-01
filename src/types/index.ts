@@ -77,3 +77,13 @@ export interface ServerFieldsError {
     };
   };
 }
+
+export enum EDIT_PROFILE_FIELD_NAMES {
+  name = 'name',
+  avatar = 'avatar',
+}
+
+export interface EditProfileFormValues {
+  [EDIT_PROFILE_FIELD_NAMES.name]: string;
+  [EDIT_PROFILE_FIELD_NAMES.avatar]?: File;
+}

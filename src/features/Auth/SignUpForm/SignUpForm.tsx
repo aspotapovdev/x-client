@@ -67,10 +67,12 @@ export const SignUpForm: FC<SignUpFormProps> = () => {
     const formData = new FormData();
     Object.keys(submitData).forEach((key) => {
       const value = submitData[key as keyof typeof submitData];
-      if (value instanceof File) {
-        formData.append(key, value);
-      } else {
-        formData.append(key, value as string);
+      if (value) {
+        if (value instanceof File) {
+          formData.append(key, value);
+        } else {
+          formData.append(key, value as string);
+        }
       }
     });
 
@@ -97,11 +99,12 @@ export const SignUpForm: FC<SignUpFormProps> = () => {
         className="w-full flex flex-col items-center"
         encType="multipart/form-data"
         onSubmit={handleSubmit(onSubmit)}>
-        <AvatarUpload
+        <AvatarUpload<SignUpFormValues>
           errorMessage={errors.avatar?.message}
           setValue={setValue}
           register={register}
           isSuccessfulUpload={isSubmitSuccessful}
+          fieldName={SIGN_UP_FIELD_NAMES.avatar}
         />
         <TextField
           {...register(SIGN_UP_FIELD_NAMES.name)}

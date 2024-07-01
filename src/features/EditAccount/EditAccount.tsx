@@ -1,4 +1,5 @@
 import { User } from '@/types';
+import { EditProfileForm } from '@features/EditAccount/EditProfileForm';
 import { UpdatePasswordForm } from '@features/EditAccount/UpdatePasswordForm';
 import { ArrowLeftIcon } from '@radix-ui/react-icons';
 import { FC } from 'react';
@@ -11,11 +12,10 @@ interface EditAccountProps {
 export const EditAccount: FC<EditAccountProps> = ({ user, onEdit }) => {
   return (
     <div className="flex flex-col">
-      <button
-        className="w-6 h-6 mb-4"
-        onClick={onEdit}>
+      <button className="w-6 h-6 mb-4" onClick={onEdit}>
         <ArrowLeftIcon className="w-6 h-6" />
       </button>
+      <EditProfileForm user={user} />
       <UpdatePasswordForm />
     </div>
   );
