@@ -21,7 +21,7 @@ export const Button: FC<ButtonProps> = ({
   disabled = false,
 }) => {
   const baseStyles =
-    'font-semibold h-14 px-5 py-3 rounded-lg focus:outline-none focus:shadow-outline';
+    'font-semibold h-10 px-3 py-2 rounded-lg focus:outline-none focus:shadow-outline';
 
   const variantStyles: Record<
     'primary' | 'secondary' | 'success' | 'danger',

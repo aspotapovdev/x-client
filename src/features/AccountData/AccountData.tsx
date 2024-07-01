@@ -5,9 +5,10 @@ import { FC } from 'react';
 
 interface AccountDataProps {
   user: User;
+  onEdit: () => void;
 }
 
-export const AccountData: FC<AccountDataProps> = ({ user }) => {
+export const AccountData: FC<AccountDataProps> = ({ user, onEdit }) => {
   const {
     avatar,
     email,
@@ -21,7 +22,12 @@ export const AccountData: FC<AccountDataProps> = ({ user }) => {
 
   return (
     <>
-      <Avatar preview={avatar} />
+      <div className="flex items-start justify-between">
+        <Avatar preview={avatar} />
+        <button className="mt-4 text-blue-500 hover:underline" onClick={onEdit}>
+          Редактировать
+        </button>
+      </div>
       <div className="mt-6">
         <h2 className="text-2xl font-semibold">{name}</h2>
         <p className="mt-2 text-gray-500">

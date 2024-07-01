@@ -1,9 +1,8 @@
 import { SignInFormValues } from '@/types';
+import { LOCAL_STORAGE_TOKEN_KEY } from '@constants/common.ts';
 import { AxiosError } from 'axios';
 import api from './api';
 import { API_PATHS } from '@constants/api-paths.ts';
-
-const LOCAL_STORAGE_TOKEN_KEY = 'token';
 
 export type ServerError = {
   errors: Record<string, string>;
