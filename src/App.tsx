@@ -1,16 +1,31 @@
+import { store } from '@/store';
+import { ProtectedRoute } from '@components/ProtectedRoute';
+import { PATHNAMES } from '@constants/pathnames.ts';
+import { Provider } from 'react-redux';
 import { ConfirmEmailPage } from '@pages/ConfirmEmailPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthPage } from '@pages/AuthPage';
+import { AccountPage } from '@pages/AccountPage';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<AuthPage />} />
-        <Route path="/confirm-email" element={<ConfirmEmailPage />} />
-        <Route path="*" element="not found" />
-      </Routes>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route path={PATHNAMES.root} element={<AuthPage />} />
+          <Route path={PATHNAMES.confirmEmail} element={<ConfirmEmailPage />} />
+          <Route
+            path={PATHNAMES.account}
+            element={
+              <ProtectedRoute>
+                <AccountPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element="not found" />
+        </Routes>
+      </Router>
+    </Provider>
   );
 }
 

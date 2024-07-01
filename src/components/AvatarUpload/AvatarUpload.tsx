@@ -1,3 +1,4 @@
+import { Avatar } from '@components/Avatar';
 import { Button } from '@components/Button';
 import { FC, useState, useRef, useEffect, ChangeEvent } from 'react';
 import { ReactComponent as EmptyUserAvatar } from '@/assets/empty-user-avatar.svg';
@@ -75,11 +76,7 @@ export const AvatarUpload: FC<AvatarUploadProps> = ({
     <div className="flex flex-col items-center w-full">
       <label className="btn" htmlFor="avatar-upload-input">
         {preview ? (
-          <img
-            src={preview}
-            alt="Предварительный просмотр"
-            className="mt-4 w-32 h-32 rounded-full object-cover"
-          />
+          <Avatar preview={preview} />
         ) : (
           <EmptyUserAvatar className="mt-4 w-32 h-32" />
         )}

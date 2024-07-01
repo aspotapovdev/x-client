@@ -32,3 +32,23 @@ export interface SignUpDTO {
   [SIGN_UP_FIELD_NAMES.avatar]: File;
   dateOfBirth: string;
 }
+
+export enum SIGN_IN_FIELD_NAMES {
+  email = 'email',
+  password = 'password',
+}
+
+export interface SignInFormValues {
+  [SIGN_IN_FIELD_NAMES.email]: string;
+  [SIGN_IN_FIELD_NAMES.password]: string;
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  dateOfBirth: string;
+  gender: GENDER;
+  avatar: string;
+  age: number;
+}
