@@ -1,36 +1,52 @@
 import { Avatar } from '@components/Avatar';
 import { Button } from '@components/Button';
-import { FC, useState, useRef, useEffect, ChangeEvent } from 'react';
+import { useState, useRef, useEffect, ChangeEvent } from 'react';
 import { ReactComponent as EmptyUserAvatar } from '@/assets/empty-user-avatar.svg';
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { SIGN_UP_FIELD_NAMES, SignUpFormValues } from '@/types';
+import {
+  FieldValues,
+  Path,
+  PathValue,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form';
 import AvatarEditor from 'react-avatar-editor';
 import { Modal } from '@/components/Modal';
 
-interface AvatarUploadProps {
-  register: UseFormRegister<SignUpFormValues>;
-  setValue: UseFormSetValue<SignUpFormValues>;
+interface AvatarUploadProps<T extends FieldValues> {
+  register: UseFormRegister<T>;
+  setValue: UseFormSetValue<T>;
   isSuccessfulUpload: boolean;
   errorMessage?: string;
+  initialAvatarUrl?: string;
+  fieldName: Path<T>;
+  isEditable?: boolean;
 }
 
-export const AvatarUpload: FC<AvatarUploadProps> = ({
+export const AvatarUpload = <T extends FieldValues>({
   register,
   setValue,
   isSuccessfulUpload,
-}) => {
+  initialAvatarUrl,
+  fieldName,
+  isEditable,
+  errorMessage,
+}: AvatarUploadProps<T>) => {
   const hiddenInputRef = useRef(null);
   const editorRef = useRef<AvatarEditor | null>(null);
 
   const [file, setFile] = useState<File | null>(null);
-  const [scale, setScale] = useState<number>(2);
+  const [scale, setScale] = useState<number>(1.5);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null>(
+    initialAvatarUrl || null
+  );
 
   useEffect(() => {
     if (isSuccessfulUpload) {
       setFile(null);
-      setPreview(null);
+      if (!initialAvatarUrl) {
+        setPreview(null);
+      }
     }
   }, [isSuccessfulUpload]);
 
@@ -55,7 +71,7 @@ export const AvatarUpload: FC<AvatarUploadProps> = ({
             type: 'image/png',
           });
 
-          setValue(SIGN_UP_FIELD_NAMES.avatar, avatarFile);
+          setValue(fieldName, avatarFile as PathValue<T, Path<T>>);
 
           setPreview(URL.createObjectURL(avatarFile));
         }
@@ -74,19 +90,22 @@ export const AvatarUpload: FC<AvatarUploadProps> = ({
 
   return (
     <div className="flex flex-col items-center w-full">
-      <label className="btn" htmlFor="avatar-upload-input">
+      <label className="cursor-pointer" htmlFor="avatar-upload-input">
         {preview ? (
-          <Avatar preview={preview} />
+          <Avatar preview={preview} isEditable={isEditable} />
         ) : (
           <EmptyUserAvatar className="mt-4 w-32 h-32" />
         )}
       </label>
+      {errorMessage && (
+        <span className="text-xs text-red-500">{errorMessage}</span>
+      )}
       <input
         id="avatar-upload-input"
         type="file"
         className="hidden"
         accept="image/*"
-        {...register(SIGN_UP_FIELD_NAMES.avatar, {
+        {...register(fieldName, {
           onChange: handleUploadedFile,
         })}
         ref={hiddenInputRef}
