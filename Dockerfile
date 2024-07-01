@@ -17,7 +17,7 @@ RUN npm install --production
 COPY . .
 
 # Create production build of React App
-RUN npm run build:production
+RUN npm run build:prod
 
 # Choose NGINX as our base Docker image
 FROM nginx:alpine
