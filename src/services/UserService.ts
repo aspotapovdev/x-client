@@ -43,6 +43,12 @@ export const userServiceApi = createApi({
       }),
       invalidatesTags: ['user'],
     }),
+    getAllUsers: builder.query<User[], void>({
+      query: () => ({
+        url: API_PATHS.getAllUsers,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -50,4 +56,5 @@ export const {
   useMeQuery,
   useChangePasswordMutation,
   useUpdateProfileMutation,
+  useGetAllUsersQuery,
 } = userServiceApi;

@@ -16,6 +16,9 @@ export const Header: FC<HeaderProps> = () => {
               <Link to={PATHNAMES.account}>Аккаунт</Link>
             </li>
             <li>
+              <Link to={PATHNAMES.people}>Пользователи</Link>
+            </li>
+            <li>
               <Logout />
             </li>
           </ul>

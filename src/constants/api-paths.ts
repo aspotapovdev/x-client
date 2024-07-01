@@ -7,4 +7,5 @@ export const API_PATHS = Object.freeze({
   getMe: `${API_HOST}/users/me`,
   changePassword: `${API_HOST}/users/change-password`,
   updateProfile: `${API_HOST}/users/update`,
+  getAllUsers: `${API_HOST}/users/all`,
 });

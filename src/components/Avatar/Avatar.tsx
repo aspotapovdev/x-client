@@ -8,7 +8,7 @@ interface AvatarProps {
 
 export const Avatar: FC<AvatarProps> = ({ preview, isEditable }) => {
   return (
-    <div className="relative mt-4 w-32 h-32 rounded-full">
+    <div className="relative w-32 min-w-32 h-32 rounded-full">
       <img
         src={preview}
         alt="Предварительный просмотр"
