@@ -5,4 +5,5 @@ export const API_PATHS = Object.freeze({
   verifyEmail: `${API_HOST}/auth/verify-email`,
   login: `${API_HOST}/auth/login`,
   getMe: `${API_HOST}/users/me`,
+  changePassword: `${API_HOST}/users/change-password`,
 });

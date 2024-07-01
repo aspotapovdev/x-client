@@ -179,7 +179,7 @@ export const SignUpForm: FC<SignUpFormProps> = () => {
         </div>
         <Button
           type="submit"
-          size="lg"
+          size="md"
           className="mt-9 self-center min-w-60"
           disabled={isSubmitting}>
           {isSubmitting ? (

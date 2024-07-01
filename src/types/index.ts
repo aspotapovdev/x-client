@@ -52,3 +52,28 @@ export interface User {
   avatar: string;
   age: number;
 }
+
+export enum CHANGE_PASSWORD_FIELD_NAMES {
+  oldPassword = 'oldPassword',
+  newPassword = 'newPassword',
+  confirmPassword = 'confirmPassword',
+}
+
+export interface ChangePasswordFormValues {
+  [CHANGE_PASSWORD_FIELD_NAMES.oldPassword]: string;
+  [CHANGE_PASSWORD_FIELD_NAMES.newPassword]: string;
+  [CHANGE_PASSWORD_FIELD_NAMES.confirmPassword]: string;
+}
+
+export interface ChangePasswordDTO {
+  [CHANGE_PASSWORD_FIELD_NAMES.oldPassword]: string;
+  [CHANGE_PASSWORD_FIELD_NAMES.newPassword]: string;
+}
+
+export interface ServerFieldsError {
+  data: {
+    errors: {
+      [key: string]: string;
+    };
+  };
+}

@@ -1,5 +1,6 @@
-import { User } from '@/types';
+import { ChangePasswordDTO, User } from '@/types';
 import { API_HOST, API_PATHS } from '@constants/api-paths';
+import { LOCAL_STORAGE_TOKEN_KEY } from '@constants/common.ts';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const userServiceApi = createApi({
@@ -8,7 +9,7 @@ export const userServiceApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_HOST,
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
 
@@ -26,7 +27,14 @@ export const userServiceApi = createApi({
         return response.user;
       },
     }),
+    changePassword: builder.mutation<void, ChangePasswordDTO>({
+      query: ({ oldPassword, newPassword }) => ({
+        url: API_PATHS.changePassword,
+        method: 'POST',
+        body: { oldPassword, newPassword },
+      }),
+    }),
   }),
 });
 
-export const { useMeQuery } = userServiceApi;
+export const { useMeQuery, useChangePasswordMutation } = userServiceApi;

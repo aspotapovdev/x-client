@@ -64,7 +64,7 @@ export const SignInForm: FC<SignInFormProps> = () => {
         )}
         <Button
           type="submit"
-          size="lg"
+          size="md"
           className="mt-9 self-center min-w-60"
           disabled={isSubmitting}>
           {isSubmitting ? <PulseLoader color="#fff" size={8} /> : 'Войти'}
