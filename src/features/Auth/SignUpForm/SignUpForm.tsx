@@ -6,7 +6,7 @@ import { Select } from '@components/Select';
 import { TextField } from '@components/TextField';
 import { Dialog } from '@components/Dialog';
 import { validationSchema } from '@features/Auth/SignUpForm/validationSchema.ts';
-import { ServerError, signUp } from '@services/authService.ts';
+import { ServerError, AuthService } from '@services/AuthService.ts';
 import { AxiosError } from 'axios';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -75,7 +75,7 @@ export const SignUpForm: FC<SignUpFormProps> = () => {
     });
 
     try {
-      await signUp(formData);
+      await AuthService.signUp(formData);
       reset();
       setOpenSuccessModal(true);
     } catch (error) {

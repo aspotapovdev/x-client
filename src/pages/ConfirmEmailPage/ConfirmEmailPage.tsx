@@ -1,6 +1,7 @@
+import { PATHNAMES } from '@constants/pathnames.ts';
 import { PulseLoader } from 'react-spinners';
 import { Dialog } from '@components/Dialog';
-import { confirmEmail } from '@services/authService.ts';
+import { AuthService } from '@services/AuthService.ts';
 import { FC, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
@@ -16,11 +17,11 @@ export const ConfirmEmailPage: FC<ConfirmEmailPageProps> = () => {
     const confirm = async () => {
       try {
         const token = new URLSearchParams(location.search).get('token') || '';
-        await confirmEmail(token);
+        await AuthService.confirmEmail(token);
         setIsOpenSuccessModal(true);
       } catch (error) {
         setLoading(false);
-        setShowErrorMessage(error.response.data.message);
+        setShowErrorMessage(true);
       }
     };
     confirm();
@@ -28,7 +29,7 @@ export const ConfirmEmailPage: FC<ConfirmEmailPageProps> = () => {
 
   const handleSuccessModalClose = () => {
     setIsOpenSuccessModal(false);
-    window.location.href = '/login';
+    window.location.href = PATHNAMES.root;
   };
 
   return (

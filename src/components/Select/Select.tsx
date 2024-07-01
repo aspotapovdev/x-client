@@ -1,10 +1,30 @@
+import { SIGN_UP_FIELD_NAMES, SignUpFormValues } from '@/types';
 import { useClickOutside } from '@/utils';
 import cn from 'classnames';
-import React, { MutableRefObject, useRef, useState } from 'react';
+import { FC, MutableRefObject, useRef, useState } from 'react';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
-import { useController } from 'react-hook-form';
+import { Control, useController } from 'react-hook-form';
 
-export const Select = ({ name, control, options, placeholder, classnames }) => {
+export interface Option {
+  value: string;
+  label: string;
+}
+
+interface SelectProps {
+  name: SIGN_UP_FIELD_NAMES;
+  control: Control<SignUpFormValues>;
+  options: Option[];
+  placeholder: string;
+  classnames?: string;
+}
+
+export const Select: FC<SelectProps> = ({
+  name,
+  control,
+  options,
+  placeholder,
+  classnames,
+}) => {
   const {
     field: { onChange, value },
     fieldState: { error },
@@ -17,7 +37,7 @@ export const Select = ({ name, control, options, placeholder, classnames }) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSelect = (option) => {
+  const handleSelect = (option: Option) => {
     onChange(option.value);
     setIsOpen(false);
   };
