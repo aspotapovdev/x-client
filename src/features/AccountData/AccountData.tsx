@@ -24,7 +24,7 @@ export const AccountData: FC<AccountDataProps> = ({ user, onEdit }) => {
     <>
       <div className="flex items-start justify-between">
         <Avatar preview={avatar} />
-        <button className="mt-4 text-blue-500 hover:underline" onClick={onEdit}>
+        <button className="text-blue-500 hover:underline" onClick={onEdit}>
           Редактировать
         </button>
       </div>

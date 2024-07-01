@@ -1,6 +1,7 @@
 import { store } from '@/store';
 import { ProtectedRoute } from '@components/ProtectedRoute';
 import { PATHNAMES } from '@constants/pathnames.ts';
+import { PeoplePage } from '@pages/PeoplePage';
 import { Provider } from 'react-redux';
 import { ConfirmEmailPage } from '@pages/ConfirmEmailPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -19,6 +20,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <AccountPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={PATHNAMES.people}
+            element={
+              <ProtectedRoute>
+                <PeoplePage />
               </ProtectedRoute>
             }
           />
